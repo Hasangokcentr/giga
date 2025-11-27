@@ -2,10 +2,10 @@ import axios from "axios";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "./constant.js";
 
 // Production URL (opsiyonel)
-const apiUrl = "http://localhost:8000";
+const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL : apiUrl,
+  baseURL:  apiUrl,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
