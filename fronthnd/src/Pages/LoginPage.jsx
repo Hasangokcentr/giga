@@ -5,7 +5,9 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from "../services/constant";
 import "../styles/Login.css";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
+  // Değişken ismini 'email' yerine 'username' olarak düşünelim ama 
+  // mevcut kodunu bozmamak için state ismini değiştirmedim, sadece kutuyu düzelttim.
+  const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");
   const [isRegister, setIsRegister] = useState(false);
   const [regName, setRegName] = useState("");
@@ -18,7 +20,7 @@ const LoginPage = () => {
     
     try {
       const res = await api.post("/api/token/", { 
-        username: email, 
+        username: email,  // Backend 'username' istiyor, biz kutuya ne yazılırsa onu gönderiyoruz
         password
       });
 
@@ -28,7 +30,7 @@ const LoginPage = () => {
       console.log("Giriş başarılı:", res.data);
       navigate("/dashboard");
     } catch (error) {
-      alert(error);
+      alert("Giriş başarısız! Kullanıcı adı veya şifre hatalı.");
     }
   };
 
@@ -37,7 +39,7 @@ const LoginPage = () => {
     
     try {
       await api.post("/api/user/register/", { 
-        username: regEmail,
+        username: regEmail, // Kayıtta da kullanıcı adı olarak gönderiyoruz
         password: regPassword
       });
       
@@ -45,31 +47,32 @@ const LoginPage = () => {
       setRegName("");
       setRegEmail("");
       setRegPassword("");
-      console.log("Kayıt başarılı - Giriş yapabilirsiniz!");
+      alert("Kayıt başarılı! Şimdi giriş yapabilirsiniz.");
     } catch (error) {
-      alert(error);
+      alert("Kayıt başarısız! Bu kullanıcı adı alınmış olabilir.");
     }
   };
 
   return (
     <div className="login-container">
-      {/* LOGIN PANEL - Sadece bu görünecek */}
+      {/* LOGIN PANEL */}
       {!isRegister && (
         <div className="login-card">
           <h2>Hoşgeldiniz 👋</h2>
           <p className="subtitle">Görevlerinize erişmek için giriş yapın</p>
 
           <form onSubmit={handleLogin}>
-            <label>Email</label>
+            {/* DÜZELTME 1: Label değişti */}
+            <label>Kullanıcı Adı</label> 
             <input
-              type="email"
-              placeholder="example@mail.com"
+              type="text" // DÜZELTME 2: 'email' yerine 'text' yaptık. Artık @ sormayacak.
+              placeholder="Kullanıcı Adı" // DÜZELTME 3: Placeholder güncellendi
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
 
-            <label>Password</label>
+            <label>Şifre</label>
             <input
               type="password"
               placeholder="••••••••"
@@ -78,7 +81,7 @@ const LoginPage = () => {
               required
             />
 
-            <button type="submit" className="login-btn">Log In</button>
+            <button type="submit" className="login-btn">Giriş Yap</button>
           </form>
 
           <p className="login-footer">
@@ -90,32 +93,34 @@ const LoginPage = () => {
         </div>
       )}
 
-      {/* REGISTER PANEL - İstendiğinde görünecek */}
+      {/* REGISTER PANEL */}
       {isRegister && (
         <div className="login-card">
           <h2>Hesabınızı oluşturalım</h2>
           <p className="subtitle">Devam etmek için kayıt olun</p>
 
           <form onSubmit={handleRegister}>
-            <label>Name</label>
+            {/* Not: Backend sadece username ve password alıyor, Name şimdilik süs */}
+            <label>İsim Soyisim</label>
             <input
               type="text"
-              placeholder="kullanıcı adı"
+              placeholder="Adınız Soyadınız"
               value={regName}
               onChange={(e) => setRegName(e.target.value)}
               required
             />
 
-            <label>Email</label>
+            {/* DÜZELTME 4: Kayıt olurken de text yaptık ki isteyen 'hasan' diye kayıt olabilsin */}
+            <label>Kullanıcı Adı</label>
             <input
-              type="email"
-              placeholder="example@mail.com"
+              type="text" 
+              placeholder="Kullanıcı Adı Belirleyin"
               value={regEmail}
               onChange={(e) => setRegEmail(e.target.value)}
               required
             />
 
-            <label>Password</label>
+            <label>Şifre</label>
             <input
               type="password"
               placeholder="••••••••"
@@ -124,7 +129,7 @@ const LoginPage = () => {
               required
             />
 
-            <button type="submit" className="login-btn">Register</button>
+            <button type="submit" className="login-btn">Kayıt Ol</button>
           </form>
 
           <p className="login-footer">
@@ -136,7 +141,7 @@ const LoginPage = () => {
         </div>
       )}
 
-      {/* SAĞ TARAF GRADIENT ALAN */}
+      {/* SAĞ TARAF */}
       <div className="login-side">
         <h1>Görev Yönetimi</h1>
         <p>Şirketinizi tek bir platformdan kontrol edin 📈</p>

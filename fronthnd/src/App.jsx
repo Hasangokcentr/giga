@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./Pages/LoginPage";
-import Dashboard from "./Pages/Dashboard"; // <-- DİKKAT: Küçük 'b' ile
+import Dashboard from "./Pages/DashBoard"; // <-- DİKKAT: Küçük 'b' ile
 
 function App() {
   return (
