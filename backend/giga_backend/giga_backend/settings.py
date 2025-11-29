@@ -145,13 +145,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ============================================================
 # CORS SETTINGS
 # ============================================================
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "http://127.0.0.1:3000",
-    "http://127.0.0.1:5173",
-    "http://192.168.1.106:8081",
-]
+CORS_ALLOWED_ORIGINS = True
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -167,11 +161,9 @@ CORS_ALLOW_HEADERS = [
     'x-requested-with',
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-    'http://192.168.1.106:8081',
-]
+CSRF_TRUSTED_ORIGINS =[
+     "https://giga-frontend.onrender.com", 
+    "https://giga-backend.onrender.com",]
 
 
 # ============================================================
